@@ -37,6 +37,10 @@ No install or build step.
 | `DESIGN.md` | Wireframe and design note |
 
 ## Screenshots
+Patient Window:
+![alt text](Patient.png)
+Staff Window:
+![alt text](Staff.png)
 
 
 
