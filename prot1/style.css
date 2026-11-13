@@ -1,17 +1,18 @@
-/* Clinic Queue Demonstrator - plain, minimal styles.
-   Mobile first. Breakpoints: 600px (tablet) and 960px (desktop). */
+/* Clinic Queue Demonstrator - light, professional responsive styles. */
 
 :root {
-  --text: #1f2933;
-  --muted: #616e7c;
-  --border: #cbd2d9;
-  --bg: #f5f7fa;
+  --text: #233044;
+  --muted: #66758a;
+  --border: #dce5ef;
+  --bg: #f4f7fb;
   --panel: #ffffff;
-  --accent: #1f5fa8;
-  --warn-bg: #fff6d6;
-  --warn-border: #d9b300;
-  --error: #b42318;
-  --ok: #1a7f37;
+  --accent: #2563eb;
+  --accent-soft: #eff6ff;
+  --warn-bg: #fff9e8;
+  --warn-border: #f2c94c;
+  --error: #c0392b;
+  --ok: #18805c;
+  --shadow: 0 8px 24px rgba(37, 61, 93, 0.06);
 }
 
 * {
@@ -23,7 +24,7 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   line-height: 1.5;
   color: var(--text);
-  background: var(--bg);
+  background: linear-gradient(180deg, #f8fbff 0, var(--bg) 18rem);
 }
 
 header,
@@ -31,16 +32,28 @@ main,
 footer {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 h1 {
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
+  color: #173b71;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
 h2 {
-  font-size: 1.15rem;
+  color: #29466e;
+  font-size: 1.1rem;
   margin: 0 0 0.75rem;
 }
 
@@ -55,6 +68,8 @@ h2 {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 /* Layout: single column on mobile */
@@ -67,7 +82,9 @@ main {
 .queue {
   background: var(--panel);
   border: 1px solid var(--border);
-  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
 }
 
 .queue {
@@ -91,11 +108,23 @@ input,
 select,
 button {
   font: inherit;
-  padding: 0.45rem 0.6rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.7rem;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 7px;
   background: #fff;
   color: var(--text);
+}
+
+input::placeholder {
+  color: #96a3b5;
+}
+
+input:focus,
+select:focus {
+  border-color: #7aa7f8;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  outline: none;
 }
 
 input:invalid:not(:placeholder-shown),
@@ -108,25 +137,30 @@ button {
   border-color: var(--accent);
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 button:hover {
-  filter: brightness(0.92);
+  background: #1d4ed8;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px);
 }
 
 button.secondary {
-  background: #fff;
+  background: var(--accent-soft);
   color: var(--accent);
+  border-color: #cfe0ff;
 }
 
 button.danger {
-  background: #fff;
+  background: #fff5f4;
   color: var(--error);
-  border-color: var(--error);
+  border-color: #f0c4bf;
 }
 
 :focus-visible {
-  outline: 3px solid #f0a500;
+  outline: 3px solid #8bb5ff;
   outline-offset: 2px;
 }
 
@@ -145,7 +179,8 @@ button.danger {
 }
 
 .serving {
-  font-size: 1.4rem;
+  color: #173b71;
+  font-size: 1.35rem;
   font-weight: 700;
   margin: 0 0 1rem;
 }
@@ -177,7 +212,8 @@ thead {
 
 tr {
   display: block;
-  border: 1px solid var(--border);
+  border: 1px solid #e3eaf3;
+  border-radius: 8px;
   margin-bottom: 0.75rem;
   padding: 0.5rem;
 }
@@ -206,21 +242,23 @@ td.actions::before {
 }
 
 .status {
+  align-items: center;
   font-weight: 600;
 }
 
-.status-waiting { color: #8a5a00; }
+.status-waiting { color: #9a6700; }
 .status-called { color: var(--accent); }
 .status-done { color: var(--ok); }
 .status-cancelled { color: var(--muted); }
 
 .priority {
-  border: 1px solid var(--error);
+  background: #fff5f4;
+  border: 1px solid #f0c4bf;
   color: var(--error);
   padding: 0 0.35rem;
   margin-left: 0.4rem;
   font-size: 0.8rem;
-  border-radius: 3px;
+  border-radius: 999px;
 }
 
 .empty {
@@ -244,6 +282,13 @@ body[data-role="patient"] .staff-only {
 
 /* Tablet */
 @media (min-width: 600px) {
+  header,
+  main,
+  footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   main {
     grid-template-columns: 1fr 1fr;
   }
@@ -288,7 +333,11 @@ body[data-role="patient"] .staff-only {
   }
 
   th {
-    background: var(--bg);
+    background: #f7faff;
+    color: #52657e;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
 
   td::before {
