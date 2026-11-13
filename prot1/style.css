@@ -1,0 +1,309 @@
+/* Clinic Queue Demonstrator - plain, minimal styles.
+   Mobile first. Breakpoints: 600px (tablet) and 960px (desktop). */
+
+:root {
+  --text: #1f2933;
+  --muted: #616e7c;
+  --border: #cbd2d9;
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --accent: #1f5fa8;
+  --warn-bg: #fff6d6;
+  --warn-border: #d9b300;
+  --error: #b42318;
+  --ok: #1a7f37;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+header,
+main,
+footer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.75rem;
+}
+
+.notice {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.role-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Layout: single column on mobile */
+main {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel,
+.queue {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 1rem;
+}
+
+.queue {
+  min-width: 0; /* lets the table scroll instead of stretching the grid */
+}
+
+/* Forms */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text);
+}
+
+input:invalid:not(:placeholder-shown),
+input:user-invalid {
+  border-color: var(--error);
+}
+
+button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.92);
+}
+
+button.secondary {
+  background: #fff;
+  color: var(--accent);
+}
+
+button.danger {
+  background: #fff;
+  color: var(--error);
+  border-color: var(--error);
+}
+
+:focus-visible {
+  outline: 3px solid #f0a500;
+  outline-offset: 2px;
+}
+
+/* Messages */
+.message {
+  min-height: 1.5rem;
+  margin: 0.5rem 0 0;
+}
+
+.message.error {
+  color: var(--error);
+}
+
+.message.ok {
+  color: var(--ok);
+}
+
+.serving {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.small {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Table: stacked cards on mobile */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  display: none;
+}
+
+tr {
+  display: block;
+  border: 1px solid var(--border);
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+}
+
+td {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.2rem 0;
+}
+
+td::before {
+  content: attr(data-label);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+td.actions {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+td.actions::before {
+  display: none;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.status-waiting { color: #8a5a00; }
+.status-called { color: var(--accent); }
+.status-done { color: var(--ok); }
+.status-cancelled { color: var(--muted); }
+
+.priority {
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: 0 0.35rem;
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 1rem;
+}
+
+/* Role-based visibility */
+body[data-role="patient"] .staff-only {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Tablet */
+@media (min-width: 600px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .queue {
+    grid-column: 1 / -1;
+  }
+
+  .toolbar {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .toolbar .field {
+    flex: 1;
+  }
+}
+
+/* Desktop: real table, three panels across */
+@media (min-width: 960px) {
+  main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    display: table-row;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  th,
+  td {
+    display: table-cell;
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: var(--bg);
+  }
+
+  td::before {
+    display: none;
+  }
+
+  td.actions {
+    display: table-cell;
+  }
+
+  td.actions button {
+    margin-right: 0.35rem;
+  }
+
+  body[data-role="patient"] td.staff-only {
+    display: none;
+  }
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic Queue Demonstrator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-role="patient">
+
+  <header>
+    <h1>Clinic Queue Demonstrator</h1>
+    <div class="role-picker">
+      <label for="role">Viewing as</label>
+      <select id="role">
+        <option value="patient">Patient</option>
+        <option value="staff">Staff</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="panel" aria-labelledby="issue-heading">
+      <h2 id="issue-heading">Get a token</h2>
+      <form id="issue-form">
+        <div class="field">
+          <label for="initials">Initials (2 or 3 letters)</label>
+          <input id="initials" name="initials" type="text" required
+                 minlength="2" maxlength="3" pattern="[A-Za-z]{2,3}"
+                 title="Enter 2 or 3 letters, for example AK" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="visit">Visit type</label>
+          <select id="visit" name="visit" required>
+            <option value="">Choose one</option>
+            <option>General</option>
+            <option>Follow-up</option>
+            <option>Vaccination</option>
+          </select>
+        </div>
+        <button type="submit">Get token</button>
+      </form>
+      <p id="issue-message" class="message" role="status"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="check-heading">
+      <h2 id="check-heading">Check my token</h2>
+      <form id="check-form">
+        <div class="field">
+          <label for="token-number">Token number</label>
+          <input id="token-number" type="number" min="101" step="1" required>
+        </div>
+        <button type="submit">Check status</button>
+      </form>
+      <p id="check-message" class="message" role="status"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="serving-heading">
+      <h2 id="serving-heading">Now serving</h2>
+      <p id="now-serving" class="serving"></p>
+      <div class="field">
+        <label for="avg-minutes">Average minutes per patient</label>
+        <input id="avg-minutes" type="number" min="1" max="60" step="1" value="8" readonly>
+      </div>
+      <p id="avg-message" class="message" role="status"></p>
+      <button type="button" id="call-next" class="staff-only">Call next patient</button>
+      <p id="staff-message" class="message staff-only" role="status"></p>
+    </section>
+
+    <section class="queue" aria-labelledby="queue-heading">
+      <h2 id="queue-heading">Queue</h2>
+      <div class="toolbar">
+        <div class="field">
+          <label for="filter-status">Show</label>
+          <select id="filter-status">
+            <option value="all">All tokens</option>
+            <option value="waiting">Waiting</option>
+            <option value="called">Called</option>
+            <option value="done">Done</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-search">Search by token or initials</label>
+          <input id="filter-search" type="search" autocomplete="off">
+        </div>
+      </div>
+      <p id="updated" class="small"></p>
+
+      <div class="table-wrap">
+        <table>
+          <caption class="visually-hidden">Clinic queue tokens</caption>
+          <thead>
+            <tr>
+              <th scope="col">Token</th>
+              <th scope="col">Initials</th>
+              <th scope="col">Visit</th>
+              <th scope="col">Status</th>
+              <th scope="col">Issued</th>
+              <th scope="col">Estimated wait</th>
+              <th scope="col" class="staff-only">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="queue-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
