@@ -46,7 +46,7 @@ Staff Window:
 
 ## AI assistance disclosure
 
-_(Edit this to match what you actually did.)_ An AI assistant (Claude) helped generate the first draft of this code. I reviewed it, tested it in the browser, and can explain and change any part of it.
+ An AI assistant (Claude) was used for assistance in the assignemnt. His work was reviewed and tested and then integrated
 
 ## Reused code and assets
 
